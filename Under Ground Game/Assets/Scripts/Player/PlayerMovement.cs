@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
+    public Animator animator;
+
     public Camera playerCam;
 
     public float walkingSpeed;
@@ -23,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        animator.enabled = false;
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false; 
@@ -55,8 +58,11 @@ public class PlayerMovement : MonoBehaviour
             playerCam.transform.localRotation = Quaternion.Euler(rotationX,0,0);
             transform.rotation *= Quaternion.Euler(0,Input.GetAxis("Mouse X") * lookSpeed,0);
         }
-        
+    }
 
-        
+    public void InteractComputer()
+    {
+        animator.enabled = !animator.enabled;   
+        animator.SetTrigger("InteractPc");
     }
 }
