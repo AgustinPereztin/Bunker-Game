@@ -14,7 +14,7 @@ public class IsGrounded : MonoBehaviour
     {
         if(other.gameObject.layer == 6)
         {
-            Debug.Log("Grounded");
+            Debug.Log("Grounded in " + other.gameObject.name);
             pm.isGrounded = true;
         }
     }
