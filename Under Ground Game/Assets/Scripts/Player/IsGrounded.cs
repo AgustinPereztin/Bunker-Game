@@ -14,7 +14,6 @@ public class IsGrounded : MonoBehaviour
     {
         if(other.gameObject.layer == 6)
         {
-            Debug.Log("Grounded in " + other.gameObject.name);
             pm.isGrounded = true;
         }
     }
@@ -23,7 +22,6 @@ public class IsGrounded : MonoBehaviour
     {
         if(other.gameObject.layer == 6)
         {
-            Debug.Log("!Grounded");
             pm.isGrounded = false;
         }
     }
