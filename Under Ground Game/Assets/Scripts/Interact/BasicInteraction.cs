@@ -5,15 +5,19 @@ using UnityEngine;
 public class BasicInteraction : MonoBehaviour
 {
     public Transform standingPosition, leavingPosition;
+    Quaternion cameraRotation;
     PlayerMovement pm;
+    GameObject playerCam;
     public GameObject interectText;
-    bool inRange, open, onCooldown;
+    public bool inRange, open, onCooldown;
 
     public float cooldown, pSpeed, rSpeed;
     void Start()
     {
         interectText.SetActive(false);
         pm = FindObjectOfType<PlayerMovement>();
+        playerCam = GameObject.Find("Player Cam");
+        cameraRotation = playerCam.transform.localRotation;
     }
 
     void Update()
@@ -42,7 +46,11 @@ public class BasicInteraction : MonoBehaviour
 
             pm.transform.rotation = Quaternion.Lerp(pm.transform.rotation, standingPosition.transform.rotation, rstep);
 
-            if (Vector3.Distance(pm.transform.position, standingPosition.localPosition) < 0.001f && pm.transform.rotation == standingPosition.rotation)
+            playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, cameraRotation, rstep);
+            pm.rotationX = 0;
+
+            if (Vector3.Distance(pm.transform.position, standingPosition.localPosition) < 0.001f 
+                && pm.transform.rotation == standingPosition.rotation)
             {
                 onCooldown = false;
             }

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float lookSpeed = 2f;
     public float lookLimit = 45f;
-    float rotationX = 0;
+    public float rotationX = 0;
 
 
     public bool canMove = true;
@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false; 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (canMove)
