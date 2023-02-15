@@ -61,5 +61,9 @@ public class MapPc : MonoBehaviour
                 FindObjectOfType<RoberMovement>().GoTo(currentMark.transform.position);
             }
         }
+        else
+        {
+            crossHair.SetActive(false);
+        }
     }
 }
