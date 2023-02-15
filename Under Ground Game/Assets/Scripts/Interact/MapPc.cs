@@ -57,6 +57,8 @@ public class MapPc : MonoBehaviour
                 }
 
                 currentMark = Instantiate(goToPointPrefab, position, rotation);
+
+                FindObjectOfType<RoberMovement>().GoTo(currentMark.transform.position);
             }
         }
     }
