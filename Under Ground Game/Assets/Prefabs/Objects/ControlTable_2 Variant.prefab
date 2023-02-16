@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6760144, y: 0.495301, z: 0.5897736}
   m_Center: {x: 0.015757322, y: 0.24778101, z: 0.11511779}
---- !u!114 &1719936411447823521
+--- !u!114 &4029132597146885515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,11 +101,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3367860627626976205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b70d42c5a716f64494edbd38a6c11db, type: 3}
+  m_Script: {fileID: 11500000, guid: 37c46e4722732b942b6cabeed8babba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 7596832568496506454}
-  uIController: {fileID: 0}
+  standingPosition: {fileID: 0}
+  leavingPosition: {fileID: 0}
+  interectText: {fileID: 0}
+  inRange: 0
+  open: 0
+  onCooldown: 0
+  cooldown: 0
+  pSpeed: 0
+  rSpeed: 0
 --- !u!1001 &3084559181622496059
 PrefabInstance:
   m_ObjectHideFlags: 0

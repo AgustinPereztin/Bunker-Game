@@ -112,7 +112,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.031507, y: 2.0197375, z: 1.9128573}
   m_Center: {x: -0.024557352, y: 0.9900533, z: -0.018204331}
---- !u!114 &5294517136693013220
+--- !u!114 &-1196288038375388669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,8 +121,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5744833081326281839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b70d42c5a716f64494edbd38a6c11db, type: 3}
+  m_Script: {fileID: 11500000, guid: 37c46e4722732b942b6cabeed8babba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 2568985509864869089}
-  uIController: {fileID: 0}
+  standingPosition: {fileID: 0}
+  leavingPosition: {fileID: 0}
+  interectText: {fileID: 0}
+  inRange: 0
+  open: 0
+  onCooldown: 0
+  cooldown: 0
+  pSpeed: 0
+  rSpeed: 0
