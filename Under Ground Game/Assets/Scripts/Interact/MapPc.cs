@@ -27,7 +27,7 @@ public class MapPc : MonoBehaviour
             crossHair.SetActive(true);
 
             //Movement
-            Vector3 forward = transform.TransformDirection(Vector3.forward);
+            Vector3 forward = transform.TransformDirection(Vector3.up);
             Vector3 right = transform.TransformDirection(Vector3.right);
 
             moveDirection = (forward * (Input.GetAxis("Vertical") * speed) + (right * (Input.GetAxis("Horizontal") * speed)));
@@ -38,11 +38,11 @@ public class MapPc : MonoBehaviour
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f && minimapCamera.orthographicSize < maxMap)
             {
-                minimapCamera.orthographicSize += scrollSpeed * Time.deltaTime;
+                minimapCamera.orthographicSize -= scrollSpeed * Time.deltaTime;
             }
             else if(Input.GetAxis("Mouse ScrollWheel") < 0f && minimapCamera.orthographicSize > minMap)
             {
-                minimapCamera.orthographicSize -= scrollSpeed * Time.deltaTime;
+                minimapCamera.orthographicSize += scrollSpeed * Time.deltaTime;
             }
 
             //Mark
@@ -50,7 +50,7 @@ public class MapPc : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Quaternion rotation = minimapCamera.transform.rotation;
-                Vector3 position = new Vector3(minimapCamera.transform.position.x, 10f, minimapCamera.transform.position.z);
+                Vector3 position = new Vector3(minimapCamera.transform.position.x, minimapCamera.transform.position.y, -15.51f);
                 if(currentMark != null)
                 {
                     Destroy(currentMark);
