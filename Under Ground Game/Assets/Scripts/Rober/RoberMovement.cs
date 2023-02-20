@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RoberMovement : MonoBehaviour
 {
@@ -43,12 +44,12 @@ public class RoberMovement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject + " collision");
         for(int i = 0; i < mine.Length; i++)
         {
             mine[i].inCollision = true;
+            mine[i].currentTilemap = collision.gameObject.GetComponent<Tilemap>();
         }
         
         alreadyGoing = false;
@@ -56,7 +57,6 @@ public class RoberMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject + " collision");
         for (int i = 0; i < mine.Length; i++)
         {
             mine[i].inCollision = false;

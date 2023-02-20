@@ -36,11 +36,11 @@ public class MapPc : MonoBehaviour
 
             //Zoom
 
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f && minimapCamera.orthographicSize < maxMap)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f && minimapCamera.orthographicSize > minMap)
             {
                 minimapCamera.orthographicSize -= scrollSpeed * Time.deltaTime;
             }
-            else if(Input.GetAxis("Mouse ScrollWheel") < 0f && minimapCamera.orthographicSize > minMap)
+            else if(Input.GetAxis("Mouse ScrollWheel") < 0f && minimapCamera.orthographicSize < maxMap)
             {
                 minimapCamera.orthographicSize += scrollSpeed * Time.deltaTime;
             }

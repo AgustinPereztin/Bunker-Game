@@ -8,9 +8,11 @@ public class RoberMine : MonoBehaviour
     public bool mine, mining, inCollision;
     public Tilemap currentTilemap;
     RoberMovement movement;
+    RoberInventory inventory;
     void Start()
     {
         movement = FindObjectOfType<RoberMovement>();
+        inventory = FindObjectOfType<RoberInventory>();
     }
 
     void Update()
@@ -26,7 +28,20 @@ public class RoberMine : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         var tilePos = currentTilemap.WorldToCell(transform.position);
-        currentTilemap.SetTile(tilePos, null);
+        if(currentTilemap.GetTile(tilePos) != null)
+        {
+            if(inventory.currentWeight + currentTilemap.gameObject.GetComponent<Item>().weight <= inventory.maxWeight)
+            {
+                currentTilemap.SetTile(tilePos, null);
+                inventory.AddItem(currentTilemap.gameObject.GetComponent<Item>());
+            }
+            else
+            {
+                Debug.Log("Inventario lleno");
+            }
+            
+        }
+        
         mining = false;
         movement.alreadyGoing = true;
     }
