@@ -43,6 +43,6 @@ public class RoberMine : MonoBehaviour
         }
         
         mining = false;
-        movement.alreadyGoing = true;
+        movement.GoTo(movement.currentDestination);
     }
 }
