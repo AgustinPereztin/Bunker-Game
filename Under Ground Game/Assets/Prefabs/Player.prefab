@@ -164,11 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2842d5884e973374fa9e2d8b8b1d4873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   playerCam: {fileID: 6534653447780540727}
   walkingSpeed: 6
   gravity: 8
   lookSpeed: 2
   lookLimit: 90
+  rotationX: 0
   canMove: 1
   isGrounded: 1
 --- !u!1 &6534653447670562575
@@ -246,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6534653447780540720
 Transform:
   m_ObjectHideFlags: 0

@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Pathfinding;
 
 public class RoberMovement : MonoBehaviour
 {
     public bool miningMode;
     public RoberMine[] mine;
-    AvoidColisions navMesh2d;
     public float baseSpeed;
     public GameObject model;
 
     public bool alreadyGoing;
     public Vector3 currentDestination;
+
+
+    private int currentPathIndex;
+    private List<Vector3> pathVectorList;
     void Start()
     {
         alreadyGoing = false;
         mine = FindObjectsOfType<RoberMine>();
-        navMesh2d = GetComponent<AvoidColisions>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < mine.Length; i++)
@@ -40,9 +40,32 @@ public class RoberMovement : MonoBehaviour
             alreadyGoing = false;
         }
 
-        if (miningMode)
+        if (alreadyGoing && Vector3.Distance(transform.position, currentDestination) > 0.5f && !miningMode)
         {
-            navMesh2d.enabled = false;
+            HandleMovement();
+        }
+    }
+
+    private void HandleMovement()
+    {
+        if (pathVectorList != null)
+        {
+            Vector3 targetPosition = pathVectorList[currentPathIndex];
+            if (Vector3.Distance(transform.position, targetPosition) > 1f)
+            {
+                Vector3 moveDir = (targetPosition - transform.position).normalized;
+
+                float distanceBefore = Vector3.Distance(transform.position, targetPosition);
+                transform.position = transform.position + moveDir * baseSpeed * Time.deltaTime;
+            }
+            else
+            {
+                currentPathIndex++;
+                if (currentPathIndex >= pathVectorList.Count)
+                {
+                    StopMoving();
+                }
+            }
         }
     }
 
@@ -58,14 +81,29 @@ public class RoberMovement : MonoBehaviour
             angle -= 90;
             model.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-        
-
         if (!miningMode)
         {
-            navMesh2d.enabled = true;
-            navMesh2d.target = destination;
-            navMesh2d.StartCoroutineLoca();
+            alreadyGoing = true;
+
+            currentPathIndex = 0;
+            pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), destination);
+
+            if (pathVectorList != null && pathVectorList.Count > 1)
+            {
+                pathVectorList.RemoveAt(0);
+            }
         }
+    }
+
+    private void StopMoving()
+    {
+        alreadyGoing = false;
+        pathVectorList = null;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
