@@ -6,27 +6,35 @@ using CodeMonkey;
 using UnityEngine.Tilemaps;
 public class Testing : MonoBehaviour {
     
-    //[SerializeField] private CharacterPathfindingMovementHandler characterPathfinding;
     [SerializeField] private RoberMovement characterPathfinding;
     private Pathfinding pathfinding;
     public Tilemap collisionableTiles;
 
     private void Start() 
     {
-        pathfinding = new Pathfinding(200, 150);
+        pathfinding = new Pathfinding(400, 300);
+        CalculatePath();
+    }
 
-        for(int x = 0; x < pathfinding.grid.GetWidth(); x++)
+    public void CalculatePath()
+    {
+        Debug.Log("Entra");
+        for (int x = 0; x < pathfinding.grid.GetWidth(); x++)
         {
-            for(int y = 0; y < pathfinding.grid.GetHeight(); y++)
+            for (int y = 0; y < pathfinding.grid.GetHeight(); y++)
             {
-                var tilePos = collisionableTiles.WorldToCell(pathfinding.grid.GetWorldPosition(x,y));
-                
+                var tilePos = collisionableTiles.WorldToCell(pathfinding.grid.GetWorldPosition(x, y));
+
                 if (collisionableTiles.GetTile(tilePos) != null)
                 {
                     pathfinding.GetNode(x, y).SetIsWalkable(false);
                 }
+                else
+                {
+                    pathfinding.GetNode(x, y).SetIsWalkable(true);
+                }
 
-                var tilePos2 = collisionableTiles.WorldToCell(pathfinding.grid.GetWorldPosition(x, y) + new Vector3(1, -1, 0));
+                /*var tilePos2 = collisionableTiles.WorldToCell(pathfinding.grid.GetWorldPosition(x, y) + new Vector3(1, -1, 0));
 
                 if (collisionableTiles.GetTile(tilePos2) != null)
                 {
@@ -66,29 +74,8 @@ public class Testing : MonoBehaviour {
                 if (collisionableTiles.GetTile(tilePos7) != null)
                 {
                     pathfinding.GetNode(x, y + 1).SetIsWalkable(false);
-                }
+                }*/
             }
         }
     }
-
-    private void Update() {
-        /*if (Input.GetMouseButtonDown(0)) {
-            Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
-            pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
-            List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
-            if (path != null) {
-                for (int i=0; i<path.Count - 1; i++) {
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 2f + Vector3.one * 5f, new Vector3(path[i+1].x, path[i+1].y) * 2f + Vector3.one * 5f, Color.green, 5f);
-                }
-            }
-            characterPathfinding.GoTo(mouseWorldPosition);
-        }
-
-        if (Input.GetMouseButtonDown(1)) {
-            Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
-            pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
-            pathfinding.GetNode(x, y).SetIsWalkable(!pathfinding.GetNode(x, y).isWalkable);
-        }*/
-    }
-
 }

@@ -9,7 +9,7 @@ public class RoberMovement : MonoBehaviour
     public RoberMine[] mine;
     public float baseSpeed;
     public GameObject model;
-
+    private CircleCollider2D roberCollider;
     public bool alreadyGoing;
     public Vector3 currentDestination;
 
@@ -20,6 +20,7 @@ public class RoberMovement : MonoBehaviour
     {
         alreadyGoing = false;
         mine = FindObjectsOfType<RoberMine>();
+        roberCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -43,6 +44,22 @@ public class RoberMovement : MonoBehaviour
         if (alreadyGoing && Vector3.Distance(transform.position, currentDestination) > 0.5f && !miningMode)
         {
             HandleMovement();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            FindObjectOfType<Testing>().CalculatePath();
+            miningMode = !miningMode;
+
+            if (!miningMode)
+            {
+                roberCollider.isTrigger = true;
+                transform.position = new Vector3(((int)transform.position.x), ((int)transform.position.y), transform.position.z);
+            }
+            else
+            {
+                roberCollider.isTrigger = false;
+            }
         }
     }
 
