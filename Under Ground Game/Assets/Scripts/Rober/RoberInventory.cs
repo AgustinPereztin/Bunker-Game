@@ -7,7 +7,14 @@ public class RoberInventory : MonoBehaviour
     public float maxWeight, currentWeight;
     public int maxItems;
     public int[] cuantity;
-    public string[] name ;
+    public string[] name;
+
+    RoberMovement rm;
+
+    private void Start()
+    {
+        rm = FindObjectOfType<RoberMovement>();
+    }
 
     public void AddItem(Item item)
     {
@@ -20,11 +27,6 @@ public class RoberInventory : MonoBehaviour
                 currentWeight += item.weight;
                 return;
             }
-        }
-
-        for(int i = 0; i < maxItems; i++)
-        {
-            Debug.Log(name[i] + " " + cuantity[i]);
         }
     }
 

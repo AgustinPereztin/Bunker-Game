@@ -12,10 +12,13 @@ public class RoberMovement : MonoBehaviour
     private CircleCollider2D roberCollider;
     public bool alreadyGoing;
     public Vector3 currentDestination;
-
+    public Transform basePosition;
+    bool alreadyGoingToBase;
 
     private int currentPathIndex;
     private List<Vector3> pathVectorList;
+
+    public BasicInteraction thePc;
     void Start()
     {
         alreadyGoing = false;
@@ -41,12 +44,17 @@ public class RoberMovement : MonoBehaviour
             alreadyGoing = false;
         }
 
+        if(alreadyGoingToBase && Vector3.Distance(transform.position, currentDestination) <= 0.5f)
+        {
+            alreadyGoingToBase = false;
+        }
+
         if (alreadyGoing && Vector3.Distance(transform.position, currentDestination) > 0.5f && !miningMode)
         {
             HandleMovement();
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && thePc.open)
         {
             FindObjectOfType<Testing>().CalculatePath();
             miningMode = !miningMode;
@@ -60,6 +68,11 @@ public class RoberMovement : MonoBehaviour
             {
                 roberCollider.isTrigger = false;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O) && thePc.open)
+        {
+            GoToBase();
         }
     }
 
@@ -83,6 +96,19 @@ public class RoberMovement : MonoBehaviour
                     StopMoving();
                 }
             }
+        }
+    }
+
+    public void GoToBase()
+    {
+        if (!alreadyGoingToBase)
+        {
+            transform.position = new Vector3(((int)transform.position.x), ((int)transform.position.y), transform.position.z);
+            FindObjectOfType<Testing>().CalculatePath();
+            GoTo(basePosition.position);
+            alreadyGoingToBase = true;
+            miningMode = false;
+            roberCollider.isTrigger = true;
         }
     }
 

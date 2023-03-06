@@ -37,7 +37,7 @@ public class RoberMine : MonoBehaviour
             }
             else
             {
-                Debug.Log("Inventario lleno");
+                movement.GoToBase();
             }
             
         }

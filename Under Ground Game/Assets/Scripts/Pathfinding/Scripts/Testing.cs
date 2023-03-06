@@ -7,12 +7,12 @@ using UnityEngine.Tilemaps;
 public class Testing : MonoBehaviour {
     
     [SerializeField] private RoberMovement characterPathfinding;
-    private Pathfinding pathfinding;
+    public Pathfinding pathfinding;
     public Tilemap collisionableTiles;
 
     private void Start() 
     {
-        pathfinding = new Pathfinding(400, 300);
+        pathfinding = new Pathfinding(800, 600);
         CalculatePath();
     }
 

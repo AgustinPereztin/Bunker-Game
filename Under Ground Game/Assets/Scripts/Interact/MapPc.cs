@@ -15,7 +15,6 @@ public class MapPc : MonoBehaviour
     public float speed, scrollSpeed;
     Vector3 moveDirection = Vector3.zero;
 
-
     private void Start()
     {
         crossHair.SetActive(false);
@@ -51,7 +50,7 @@ public class MapPc : MonoBehaviour
             {
                 Quaternion rotation = minimapCamera.transform.rotation;
                 Vector3 position = new Vector3(minimapCamera.transform.position.x, minimapCamera.transform.position.y, -15.51f);
-                if(currentMark != null)
+                if (currentMark != null)
                 {
                     Destroy(currentMark);
                 }
