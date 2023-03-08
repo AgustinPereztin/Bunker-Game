@@ -11,10 +11,12 @@ public class CommunicationPuzzle : MonoBehaviour
     public ComPuzzlePart[] part1;
     public ComPuzzlePart[] part2;
     public ComPuzzlePart[] part3;
+
+    private int[,] partRotation;
     public int partIndexX, partIndexY;
     void Start()
     {
-        
+        partRotation = new int[part1.Length,3];
     }
 
     void Update()
@@ -44,6 +46,30 @@ public class CommunicationPuzzle : MonoBehaviour
             {
                 Move(0, 1);
             }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Rotate();
+            }
+        }
+    }
+
+    public void Rotate()
+    {
+        partRotation[partIndexX, partIndexY] += 90;
+        switch (partIndexY)
+        {
+            case 0:
+                part1[partIndexX].transform.localRotation = Quaternion.Euler(0, -90, part1[partIndexX].transform.localRotation.z - partRotation[partIndexX, partIndexY]);
+                break;
+
+            case 1:
+                part2[partIndexX].transform.localRotation = Quaternion.Euler(0, -90, part2[partIndexX].transform.localRotation.z - partRotation[partIndexX, partIndexY]);
+                break;
+
+            case 2:
+                part3[partIndexX].transform.localRotation = Quaternion.Euler(0, -90, part3[partIndexX].transform.localRotation.z - partRotation[partIndexX, partIndexY]);
+                break;
         }
     }
 
