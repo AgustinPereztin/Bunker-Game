@@ -77,31 +77,31 @@ public class CommunicationPuzzle : MonoBehaviour
     {
         for(int i = 0; i < part1.Length; i++)
         {
-            part1[i].animator.SetBool("Selected", false);
+            part1[i].animator.SetFloat("Seleccionado", 0);
         }
 
         for (int i = 0; i < part2.Length; i++)
         {
-            part2[i].animator.SetBool("Selected", false);
+            part2[i].animator.SetFloat("Seleccionado", 0);
         }
 
         for (int i = 0; i < part3.Length; i++)
         {
-            part3[i].animator.SetBool("Selected", false);
+            part3[i].animator.SetFloat("Seleccionado", 0);
         }
 
         switch (partIndexY)
         {
             case 0:
-                part1[partIndexX].animator.SetBool("Selected", true);
+                part1[partIndexX].animator.SetFloat("Seleccionado", 1);
                 break;
 
             case 1:
-                part2[partIndexX].animator.SetBool("Selected", true);
+                part2[partIndexX].animator.SetFloat("Seleccionado", 1);
                 break;
 
             case 2:
-                part3[partIndexX].animator.SetBool("Selected", true);
+                part3[partIndexX].animator.SetFloat("Seleccionado", 1);
                 break;
         }
     }
