@@ -18,7 +18,6 @@ public class Testing : MonoBehaviour {
 
     public void CalculatePath()
     {
-        Debug.Log("Entra");
         for (int x = 0; x < pathfinding.grid.GetWidth(); x++)
         {
             for (int y = 0; y < pathfinding.grid.GetHeight(); y++)

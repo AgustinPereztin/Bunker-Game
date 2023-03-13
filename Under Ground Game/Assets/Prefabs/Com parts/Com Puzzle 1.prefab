@@ -133,7 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7931904678201036212}
   hasPower: 0
-  type: 0
+  type: 1
+  recives: 
+  gives: 
+  recivingPos: 0
 --- !u!95 &7931904678201036212
 Animator:
   serializedVersion: 4

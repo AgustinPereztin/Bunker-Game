@@ -17,6 +17,29 @@ public class CommunicationPuzzle : MonoBehaviour
     void Start()
     {
         partRotation = new int[part1.Length,3];
+        StartCoroutine(CalculateRute());
+
+        for(int i = 0; i < part1.Length; i++)
+        {
+            for(int j = 0; j < Random.Range(0, 5); j++)
+            {
+                Rotate(i, 0);
+            }
+        }
+        for (int i = 0; i < part2.Length; i++)
+        {
+            for (int j = 0; j < Random.Range(0, 5); j++)
+            {
+                Rotate(i, 1);
+            }
+        }
+        for (int i = 0; i < part3.Length; i++)
+        {
+            for (int j = 0; j < Random.Range(0, 5); j++)
+            {
+                Rotate(i, 2);
+            }
+        }
     }
 
     void Update()
@@ -49,26 +72,335 @@ public class CommunicationPuzzle : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                Rotate();
+                Rotate(partIndexX, partIndexY);
             }
         }
+
+        
     }
 
-    public void Rotate()
+    IEnumerator CalculateRute()
     {
-        partRotation[partIndexX, partIndexY] += 90;
-        switch (partIndexY)
+        while (true)
+        {
+            yield return new WaitForSeconds(0.002f);
+            if (comsPanel.open)
+            {
+                for (int i = 0; i < part1.Length; i++)
+                {
+                    if (part1[i].hasPower)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (part1[i].gives[j])
+                            {
+                                switch (j)
+                                {
+                                    case 0:
+                                        if (i > 0 && part1[i].recivingPos != 0)
+                                        {
+                                            if (part1[i - 1].recives[2])
+                                            {
+                                                part1[i - 1].hasPower = true;
+                                                part1[i - 1].recivingPos = 2;
+                                                part1[i - 1].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 2:
+                                        if (i < part1.Length-1 && part1[i].recivingPos != 2)
+                                        {
+                                            if (part1[i + 1].recives[0])
+                                            {
+                                                part1[i + 1].hasPower = true;
+                                                part1[i + 1].recivingPos = 0;
+                                                part1[i + 1].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 3:
+                                        if (part1[i].recivingPos != 3)
+                                        {
+                                            if (part2[i].recives[1])
+                                            {
+                                                part2[i].hasPower = true;
+                                                part2[i].recivingPos = 1;
+                                                part2[i].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+                for (int i = 0; i < part2.Length; i++)
+                {
+                    if (part2[i].hasPower)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+
+                            if (part2[i].gives[j])
+                            {
+                                switch (j)
+                                {
+                                    case 0:
+                                        if (i > 0 && part2[i].recivingPos != 0)
+                                        {
+                                            if (part2[i - 1].recives[2])
+                                            {
+                                                part2[i - 1].hasPower = true;
+                                                part2[i - 1].recivingPos = 2;
+                                                part2[i - 1].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 1:
+                                        if (part2[i].recivingPos != 1)
+                                        {
+                                            if (part1[i].recives[3])
+                                            {
+                                                part1[i].hasPower = true;
+                                                part1[i].recivingPos = 3;
+                                                part1[i].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 2:
+                                        if (i < part2.Length-1 && part2[i].recivingPos != 2)
+                                        {
+                                            if (part2[i + 1].recives[0])
+                                            {
+                                                part2[i + 1].hasPower = true;
+                                                part2[i + 1].recivingPos = 0;
+                                                part2[i + 1].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 3:
+                                        if (part2[i].recivingPos != 3)
+                                        {
+                                            if (part3[i].recives[1])
+                                            {
+                                                part3[i].hasPower = true;
+                                                part3[i].recivingPos = 1;
+                                                part3[i].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                for (int i = 0; i < part3.Length; i++)
+                {
+                    if (part3[i].hasPower)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (part3[i].gives[j])
+                            {
+                                switch (j)
+                                {
+                                    case 0:
+                                        if (i > 0 && part3[i].recivingPos != 0)
+                                        {
+                                            if (part3[i - 1].recives[2])
+                                            {
+                                                part3[i - 1].hasPower = true;
+                                                part3[i - 1].recivingPos = 2;
+                                                part3[i - 1].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 1:
+                                        if (part3[i].recivingPos != 1)
+                                        {
+                                            if (part2[i].recives[3])
+                                            {
+                                                part2[i].hasPower = true;
+                                                part2[i].recivingPos = 3;
+                                                part2[i].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                    case 2:
+                                        if (i < part3.Length-1 && part3[i].recivingPos != 2)
+                                        {
+                                            if (part3[i + 1].recives[0])
+                                            {
+                                                part3[i + 1].hasPower = true;
+                                                part3[i + 1].recivingPos = 0;
+                                                part3[i + 1].animator.SetFloat("Prendido", 1);
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+
+                for (int i = 0; i < part1.Length; i++)
+                {
+                    if (part1[i].hasPower && part1[i].type != 0)
+                    {
+                        bool hasPower = false;
+                        if (i > 0 && part1[i].recives[0])
+                        {
+                            if (part1[i - 1].gives[2] && part1[i - 1].hasPower)
+                            {
+                                hasPower = true;
+                                part1[i].recivingPos = 0;
+                            }
+                        }
+                        if (i < part1.Length - 1 && part1[i].recives[2])
+                        {
+                            if (part1[i + 1].gives[0] && part1[i + 1].hasPower)
+                            {
+                                part1[i].recivingPos = 2;
+                                hasPower = true;
+                            }
+                        }
+                        if (part1[i].recives[3])
+                        {
+                            if (part2[i].gives[1] && part2[i].hasPower)
+                            {
+                                part1[i].recivingPos = 3;
+                                hasPower = true;
+                            }
+                        }
+                        
+                        if (!hasPower)
+                        {
+                            part1[i].hasPower = false;
+                            part1[i].animator.SetFloat("Prendido", 0);
+                        }
+                        else
+                        {
+                            part1[i].hasPower = true;
+                            part1[i].animator.SetFloat("Prendido", 1);
+                        }
+                    }
+                }
+                for (int i = 0; i < part2.Length; i++)
+                {
+                    if (part2[i].hasPower && part2[i].type != 0)
+                    {
+                        bool hasPower = false;
+                        if (i > 0 && part2[i].recives[0])
+                        {
+                            if (part2[i - 1].gives[2] && part2[i - 1].hasPower)
+                            {
+                                part2[i].recivingPos = 0;
+                                hasPower = true;
+                            }
+                        }
+                        if (part2[i].recives[1])
+                        {
+                            if (part1[i].gives[3] && part1[i].hasPower)
+                            {
+                                part2[i].recivingPos = 1;
+                                hasPower = true;
+                            }
+                        }
+                        if (i < part2.Length - 1 && part2[i].recives[2])
+                        {
+                            if (part2[i + 1].gives[0] && part2[i + 1].hasPower)
+                            {
+                                part2[i].recivingPos = 2;
+                                hasPower = true;
+                            }
+                        }
+                        if (part2[i].recives[3])
+                        {
+                            if (part3[i].gives[1] && part3[i].hasPower)
+                            {
+                                part2[i].recivingPos = 3;
+                                hasPower = true;
+                            }
+                        }
+                        
+                        if (!hasPower)
+                        {
+                            part2[i].hasPower = false;
+                            part2[i].animator.SetFloat("Prendido", 0);
+                        }
+                        else
+                        {
+                            part2[i].hasPower = true;
+                            part2[i].animator.SetFloat("Prendido", 1);
+                        }
+                    }
+                }
+                for (int i = 0; i < part3.Length; i++)
+                {
+                    if (part3[i].hasPower && part3[i].type != 0)
+                    {
+                        bool hasPower = false;
+                        if (i > 0 && part3[i].recives[0])
+                        {
+                            if (part3[i - 1].gives[2] && part3[i - 1].hasPower)
+                            {
+                                part3[i].recivingPos = 0;
+                                hasPower = true;
+                            }
+                        }
+                        if (part3[i].recives[1])
+                        {
+                            if (part2[i].gives[3] && part2[i].hasPower)
+                            {
+                                part3[i].recivingPos = 1;
+                                hasPower = true;
+                            }
+                        }
+                        if (i < part3.Length - 1 && part3[i].recives[2])
+                        {
+                            if (part3[i + 1].gives[0] && part3[i + 1].hasPower)
+                            {
+                                part3[i].recivingPos = 2;
+                                hasPower = true;
+                            }
+                        }
+                        
+                        if (!hasPower)
+                        {
+                            part3[i].hasPower = false;
+                            part3[i].animator.SetFloat("Prendido", 0);
+                        }
+                        else
+                        {
+                            part3[i].hasPower = true;
+                            part3[i].animator.SetFloat("Prendido", 1);
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    public void Rotate(int position, int positionY)
+    {
+        partRotation[position, positionY] += 90;
+        switch (positionY)
         {
             case 0:
-                part1[partIndexX].transform.localRotation = Quaternion.Euler(0, -90, part1[partIndexX].transform.localRotation.z - partRotation[partIndexX, partIndexY]);
+                part1[position].transform.localRotation = Quaternion.Euler(0, -90, part1[position].transform.localRotation.z - partRotation[position, positionY]);
+                part1[position].Rotate();
                 break;
 
             case 1:
-                part2[partIndexX].transform.localRotation = Quaternion.Euler(0, -90, part2[partIndexX].transform.localRotation.z - partRotation[partIndexX, partIndexY]);
+                part2[position].transform.localRotation = Quaternion.Euler(0, -90, part2[position].transform.localRotation.z - partRotation[position, positionY]);
+                part2[position].Rotate();
                 break;
 
             case 2:
-                part3[partIndexX].transform.localRotation = Quaternion.Euler(0, -90, part3[partIndexX].transform.localRotation.z - partRotation[partIndexX, partIndexY]);
+                part3[position].transform.localRotation = Quaternion.Euler(0, -90, part3[position].transform.localRotation.z - partRotation[position, positionY]);
+                part3[position].Rotate();
                 break;
         }
     }
