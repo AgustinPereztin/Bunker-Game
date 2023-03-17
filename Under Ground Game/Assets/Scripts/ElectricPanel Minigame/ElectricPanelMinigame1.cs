@@ -25,14 +25,14 @@ public class ElectricPanelMinigame1 : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, mouseMovement.y, transform.position.z);
             indicatorLight.color = Color.red;
-
+            Debug.Log("pos y: " + transform.localPosition.y);
         } 
         else if(transform.localPosition.y > 0.24)
         {
             indicatorLight.color = Color.green;
-            Debug.Log("LLEGO A POSICION CORRECTA, pos y: " + mouseMovement.y);
+            Debug.Log("LLEGO A POSICION CORRECTA, pos y: " + transform.localPosition.y);
         }
-        Debug.Log("pos y: " + transform.localPosition.y);
+        
     }
 
     // Update is called once per frame
@@ -43,6 +43,10 @@ public class ElectricPanelMinigame1 : MonoBehaviour
         {
             Debug.Log("Luces fuera");
             turnOffLights();
+        }
+        if(transform.localPosition.y >= 0.24)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, 0.25f, transform.localPosition.z);
         }
     }
 
