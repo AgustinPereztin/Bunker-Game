@@ -5,7 +5,7 @@ using UnityEngine;
 public class ComsManager : MonoBehaviour
 {
     public CommunicationPuzzle[] puzzles;
-    Bed bed;
+    public Bed bed;
     void Start()
     {
         ChangeDay();
@@ -18,6 +18,7 @@ public class ComsManager : MonoBehaviour
             puzzles[i].gameObject.SetActive(false); 
         }
 
+        Debug.Log(bed);
         puzzles[bed.day].gameObject.SetActive(true);
     }
 }

@@ -12,7 +12,7 @@ public class Bed : MonoBehaviour
     PlayerMovement player;
     public bool inRange;
 
-    public CommunicationPuzzle comsPuzzle;
+    ComsManager comsPuzzle;
     ElectricPanelMinigame1[] electricPanel;
     void Start()
     {
@@ -22,6 +22,7 @@ public class Bed : MonoBehaviour
         superFundido.CrossFadeAlpha(0,0.5f,false);
 
         electricPanel = FindObjectsOfType<ElectricPanelMinigame1>();
+        comsPuzzle = FindObjectOfType<ComsManager>();
     }
     void Update()
     {
@@ -42,7 +43,7 @@ public class Bed : MonoBehaviour
             }
         }
 
-        if(comsPuzzle.completed && allLightsOn)
+        if(comsPuzzle.puzzles[day].completed && allLightsOn)
         {
             StartCoroutine(SleepingSecuence());
         }
@@ -51,6 +52,7 @@ public class Bed : MonoBehaviour
     IEnumerator SleepingSecuence()
     {
         day++;
+        comsPuzzle.ChangeDay();
         dayTexttxt.text = "Day " + day;
         player.canMove = false;
         fundido.CrossFadeAlpha(1,1,false);
