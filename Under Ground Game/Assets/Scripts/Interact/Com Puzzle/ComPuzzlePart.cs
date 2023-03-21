@@ -18,6 +18,8 @@ public class ComPuzzlePart : MonoBehaviour
         recives = new bool[4];
         gives = new bool[4];
 
+
+
         switch (type)
         {
             case 0:
@@ -30,13 +32,17 @@ public class ComPuzzlePart : MonoBehaviour
             case 1:
 
                 recives[0] = true;
+                recives[1] = false;
                 recives[2] = true;
+                recives[3] = false;
 
                 break;
 
             case 2:
 
                 recives[0] = true;
+                recives[1] = false;
+                recives[2] = false;
                 recives[3] = true;
 
                 break;
@@ -54,6 +60,7 @@ public class ComPuzzlePart : MonoBehaviour
 
                 recives[0] = true;
                 recives[1] = true;
+                recives[2] = false;
                 recives[3] = true;
 
                 break;
@@ -99,7 +106,7 @@ public class ComPuzzlePart : MonoBehaviour
     public void Rotate()
     {
         bool[] newRotation = new bool[4];
-        for(int i = 0; i < recives.Length; i++)
+        for(int i = 0; i < 4; i++)
         {
             if(recives[i] && i < 3)
             {
@@ -113,7 +120,7 @@ public class ComPuzzlePart : MonoBehaviour
             recives[i] = false;
         }
 
-        for(int i = 0; i < recives.Length; i++)
+        for(int i = 0; i < 4; i++)
         {
             if (newRotation[i])
             {

@@ -17,52 +17,91 @@ public class CommunicationPuzzle : MonoBehaviour
 
     public bool completed;
     public ComPuzzlePart[] endParts;
+
+    bool isReady = false;
+    float timePased = 0;
     void Start()
     {
-        partRotation = new int[part1.Length,3];
+        
 
-        int endPartsIndex = 0;
-        for(int i = 0; i < part1.Length; i++)
+    }
+    public void Rotate(int position, int positionY)
+    {
+        partRotation[position, positionY] += 90;
+        switch (positionY)
         {
-            for(int j = 0; j < part1[i].initialRotation; j++)
-            {
-                Rotate(i, 0);
-            }
-            if (part1[i].type == 6)
-            {
-                endParts[endPartsIndex] = part1[i];
-                endPartsIndex++;
-            }
-        }
-        for (int i = 0; i < part2.Length; i++)
-        {
-            for (int j = 0; j < part2[i].initialRotation; j++)
-            {
-                Rotate(i, 1);
-            }
-            if (part2[i].type == 6)
-            {
-                endParts[endPartsIndex] = part2[i];
-                endPartsIndex++;
-            }
-        }
-        for (int i = 0; i < part3.Length; i++)
-        {
-            for (int j = 0; j < part3[i].initialRotation; j++)
-            {
-                Rotate(i, 2);
-            }
+            case 0:
+                part1[position].transform.localRotation = Quaternion.Euler(0, -90, part1[position].transform.localRotation.z - partRotation[position, positionY]);
+                part1[position].Rotate();
+                break;
 
-            if (part3[i].type == 6)
-            {
-                endParts[endPartsIndex] = part3[i];
-                endPartsIndex++;
-            }
+            case 1:
+                part2[position].transform.localRotation = Quaternion.Euler(0, -90, part2[position].transform.localRotation.z - partRotation[position, positionY]);
+                part2[position].Rotate();
+                break;
+
+            case 2:
+                part3[position].transform.localRotation = Quaternion.Euler(0, -90, part3[position].transform.localRotation.z - partRotation[position, positionY]);
+                part3[position].Rotate();
+                Debug.Log("Entra tercera fila");
+                break;
         }
     }
 
     void Update()
     {
+
+        timePased += Time.deltaTime;
+
+        if(timePased > 2 && !isReady)
+        {
+            isReady = true;
+            Debug.Log("Entra1");
+
+            partRotation = new int[part1.Length, 3];
+
+            int endPartsIndex = 0;
+            for (int i = 0; i < part1.Length; i++)
+            {
+                Debug.Log("Entra2");
+                for (int j = 0; j < part1[i].initialRotation; j++)
+                {
+                    Rotate(i, 0);
+                }
+                if (part1[i].type == 6)
+                {
+                    Debug.Log("Entra3");
+                    endParts[endPartsIndex] = part1[i];
+                    endPartsIndex++;
+                }
+            }
+            for (int i = 0; i < part2.Length; i++)
+            {
+                for (int j = 0; j < part2[i].initialRotation; j++)
+                {
+                    Rotate(i, 1);
+                }
+                if (part2[i].type == 6)
+                {
+                    endParts[endPartsIndex] = part2[i];
+                    endPartsIndex++;
+                }
+            }
+            for (int i = 0; i < part3.Length; i++)
+            {
+                for (int j = 0; j < part3[i].initialRotation; j++)
+                {
+                    Rotate(i, 2);
+                }
+
+                if (part3[i].type == 6)
+                {
+                    endParts[endPartsIndex] = part3[i];
+                    endPartsIndex++;
+                }
+            }
+        }
+
         if(comsPanel.open && portada.activeInHierarchy)
         {
             portada.SetActive(false);
@@ -391,44 +430,21 @@ public class CommunicationPuzzle : MonoBehaviour
                     }
                 }
             }
-        }
 
-
-        //check if is completed
-        bool isCompletedCheck = true;
-        for(int i = 0; i < endParts.Length; i++)
-        {
-            if (!endParts[i].hasPower)
+            //check if is completed
+            bool isCompletedCheck = true;
+            for (int i = 0; i < endParts.Length; i++)
             {
-                isCompletedCheck = false;
+                if (!endParts[i].hasPower)
+                {
+                    isCompletedCheck = false;
+                }
             }
-        }
 
-        if (isCompletedCheck && !completed)
-        {
-            completed = true;
-        }
-        
-    }
-    public void Rotate(int position, int positionY)
-    {
-        partRotation[position, positionY] += 90;
-        switch (positionY)
-        {
-            case 0:
-                part1[position].transform.localRotation = Quaternion.Euler(0, -90, part1[position].transform.localRotation.z - partRotation[position, positionY]);
-                part1[position].Rotate();
-                break;
-
-            case 1:
-                part2[position].transform.localRotation = Quaternion.Euler(0, -90, part2[position].transform.localRotation.z - partRotation[position, positionY]);
-                part2[position].Rotate();
-                break;
-
-            case 2:
-                part3[position].transform.localRotation = Quaternion.Euler(0, -90, part3[position].transform.localRotation.z - partRotation[position, positionY]);
-                part3[position].Rotate();
-                break;
+            if (isCompletedCheck && !completed)
+            {
+                completed = true;
+            }
         }
     }
 
