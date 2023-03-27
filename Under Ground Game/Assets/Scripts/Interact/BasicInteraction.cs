@@ -31,7 +31,6 @@ public class BasicInteraction : MonoBehaviour
             open = true;
             interectText.SetActive(false);
             pm.canMove = false;
-            pm.InteractComputer();
             onCooldown = true;
         }
 
@@ -39,7 +38,6 @@ public class BasicInteraction : MonoBehaviour
         {
             onCooldown = true;
             open = false;
-            pm.InteractComputer();
         }
 
         if(open && onCooldown)

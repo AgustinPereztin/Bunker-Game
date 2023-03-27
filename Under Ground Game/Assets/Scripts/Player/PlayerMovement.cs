@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Animator animator;
 
     public Camera playerCam;
 
@@ -24,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        animator.enabled = false;
         characterController = GetComponent<CharacterController>();
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false; 
@@ -58,9 +56,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void InteractComputer()
-    {
-        animator.enabled = !animator.enabled;   
-        animator.SetTrigger("InteractPc");
-    }
 }

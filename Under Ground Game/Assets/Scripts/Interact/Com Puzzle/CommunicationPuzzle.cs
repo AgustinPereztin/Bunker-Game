@@ -43,7 +43,6 @@ public class CommunicationPuzzle : MonoBehaviour
             case 2:
                 part3[position].transform.localRotation = Quaternion.Euler(0, -90, part3[position].transform.localRotation.z - partRotation[position, positionY]);
                 part3[position].Rotate();
-                Debug.Log("Entra tercera fila");
                 break;
         }
     }
@@ -56,21 +55,18 @@ public class CommunicationPuzzle : MonoBehaviour
         if(timePased > 2 && !isReady)
         {
             isReady = true;
-            Debug.Log("Entra1");
 
             partRotation = new int[part1.Length, 3];
 
             int endPartsIndex = 0;
             for (int i = 0; i < part1.Length; i++)
             {
-                Debug.Log("Entra2");
                 for (int j = 0; j < part1[i].initialRotation; j++)
                 {
                     Rotate(i, 0);
                 }
                 if (part1[i].type == 6)
                 {
-                    Debug.Log("Entra3");
                     endParts[endPartsIndex] = part1[i];
                     endPartsIndex++;
                 }
