@@ -9,6 +9,8 @@ public class RoberMine : MonoBehaviour
     public Tilemap currentTilemap;
     RoberMovement movement;
     RoberInventory inventory;
+    public float miningSpeed;
+
     void Start()
     {
         movement = FindObjectOfType<RoberMovement>();
@@ -26,7 +28,7 @@ public class RoberMine : MonoBehaviour
 
     IEnumerator Mine()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(miningSpeed);
         var tilePos = currentTilemap.WorldToCell(transform.position);
         if(currentTilemap.GetTile(tilePos) != null)
         {
