@@ -43,9 +43,13 @@ public class HologramMenus : MonoBehaviour
         {
             stat1Txt.text = stat1 + ": " + options[optionIndex].stat1 + " = " + options[greenPosition].stat1;
         }
+        else if(options[optionIndex].stat1 > options[greenPosition].stat1)
+        {
+            stat1Txt.text = stat1 + ": <color=green>" + options[optionIndex].stat1  + " > " + options[greenPosition].stat1 + "</color>";
+        }
         else
         {
-            stat1Txt.text = stat1 + ": " + options[optionIndex].stat1  + (options[greenPosition].stat1 < options[optionIndex].stat1 ? " > " : " < ") + options[greenPosition].stat1;
+            stat1Txt.text = stat1 + ": <color=red>" + options[optionIndex].stat1 + " < " + options[greenPosition].stat1 + "</color>";
         }
 
 
@@ -53,18 +57,26 @@ public class HologramMenus : MonoBehaviour
         {
             stat2Txt.text = stat2 + ": " + options[optionIndex].stat2  + " = " + options[greenPosition].stat2;
         }
+        else if (options[optionIndex].stat2 > options[greenPosition].stat2)
+        {
+            stat2Txt.text = stat2 + ": <color=green>" + options[optionIndex].stat2 + " > " + options[greenPosition].stat2 + "</color>";
+        }
         else
         {
-            stat2Txt.text = stat2 + ": " + options[optionIndex].stat2 + (options[greenPosition].stat2 < options[optionIndex].stat2 ? " > " : " < ") + options[greenPosition].stat2;
+            stat2Txt.text = stat2 + ": <color=red>" + options[optionIndex].stat2 + " < " + options[greenPosition].stat2 + "</color>";
         }
 
         if (options[greenPosition].stat3 == options[optionIndex].stat3)
         {
             stat3Txt.text = stat3 + ": " + options[optionIndex].stat3  + " = " + options[greenPosition].stat3;
         }
+        else if (options[optionIndex].stat3 > options[greenPosition].stat3)
+        {
+            stat3Txt.text = stat3 + ": <color=green>" + options[optionIndex].stat3 + " > " + options[greenPosition].stat3 + "</color>";
+        }
         else
         {
-            stat3Txt.text = stat3 + ": " + options[optionIndex].stat3  + (options[greenPosition].stat3 < options[optionIndex].stat3 ? " > " : " < ") + options[greenPosition].stat3;
+            stat3Txt.text = stat3 + ": <color=red>" + options[optionIndex].stat3 + " < " + options[greenPosition].stat3 + "</color>";
         }
     }
 

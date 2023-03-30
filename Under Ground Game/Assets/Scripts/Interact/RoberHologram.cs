@@ -45,6 +45,10 @@ public class RoberHologram : MonoBehaviour
             alreadyInside= false;
             camAnimator.SetTrigger("Outside");
             hologram.SetActive(false);
+            menusOpend = false;
+            drillMenu.SetActive(false);
+            wheelsMenu.SetActive(false);
+            bodyMenu.SetActive(false);
             StartCoroutine(TurnOffAnimator());
         }
 
