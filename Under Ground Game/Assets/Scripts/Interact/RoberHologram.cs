@@ -28,7 +28,7 @@ public class RoberHologram : MonoBehaviour
 
     void Update()
     {
-        if(table.open && !alreadyInside)
+        if(table.open && !alreadyInside && FindObjectOfType<RoberManager>().inBase)
         {
             camAnimator.enabled = true;
             alreadyInside = true;
@@ -40,7 +40,7 @@ public class RoberHologram : MonoBehaviour
             hologramAnimator.SetTrigger("Inside");
         }
 
-        if (!table.open && alreadyInside)
+        if ((!table.open && alreadyInside) || !FindObjectOfType<RoberManager>().inBase)
         {
             alreadyInside= false;
             camAnimator.SetTrigger("Outside");
@@ -52,20 +52,24 @@ public class RoberHologram : MonoBehaviour
             StartCoroutine(TurnOffAnimator());
         }
 
-        CheckForInput();
-
-        if (Input.GetKeyDown(KeyCode.F) && !menusOpend && table.open)
+        if (FindObjectOfType<RoberManager>().inBase)
         {
-            OpenMenu();
-        }
+            CheckForInput();
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            menusOpend = false;
-            drillMenu.SetActive(false);
-            wheelsMenu.SetActive(false);
-            bodyMenu.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.F) && !menusOpend && table.open)
+            {
+                OpenMenu();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                menusOpend = false;
+                drillMenu.SetActive(false);
+                wheelsMenu.SetActive(false);
+                bodyMenu.SetActive(false);
+            }
         }
+        
     }
 
     public void OpenMenu()

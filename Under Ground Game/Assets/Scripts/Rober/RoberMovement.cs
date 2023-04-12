@@ -126,14 +126,21 @@ public class RoberMovement : MonoBehaviour
         }
         if (!miningMode)
         {
-            alreadyGoing = true;
-
-            currentPathIndex = 0;
-            pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), destination);
-
-            if (pathVectorList != null && pathVectorList.Count > 1)
+            if(FindObjectOfType<Testing>().IsWalkable(destination))
             {
-                pathVectorList.RemoveAt(0);
+                alreadyGoing = true;
+
+                currentPathIndex = 0;
+                pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), destination);
+
+                if (pathVectorList != null && pathVectorList.Count > 1)
+                {
+                    pathVectorList.RemoveAt(0);
+                }
+            }
+            else
+            {
+                Debug.Log("Invalid Position");
             }
         }
     }

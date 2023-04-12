@@ -36,6 +36,7 @@ public class RoberMine : MonoBehaviour
             {
                 currentTilemap.SetTile(tilePos, null);
                 inventory.AddItem(currentTilemap.gameObject.GetComponent<Item>());
+                FindObjectOfType<RoberManager>().drillCurrentHealth--;
             }
             else
             {

@@ -15,14 +15,18 @@ public class RoberManager : MonoBehaviour
     public float drillMaxHealth, drillCurrentHealth;
 
     float wheelsSpeedPenalty, maxWheelsPenalty;
+
+    public bool inBase = true;
     void Start()
     {
         maxWheelsPenalty = 2f;
 
         movement = FindObjectOfType<RoberMovement>();
         mine = FindObjectOfType<RoberMine>();
+        inventory = FindObjectOfType<RoberInventory>();
 
         StartCoroutine(LoosingHealth());
+        StartCoroutine(Repair());
     }
 
     // Update is called once per frame
@@ -40,9 +44,34 @@ public class RoberManager : MonoBehaviour
         bodyMaxHealth = body.options[body.greenPosition].stat1;
         inventory.maxWeight = body.options[body.greenPosition].stat3;
 
+        if(bodyCurrentHealth <= 0)
+        {
+            movement.GoToBase();
+        }
+
         //Drill
+        drillMaxHealth = drill.options[drill.greenPosition].stat1;
         mine.miningSpeed = 2 / (drill.options[drill.greenPosition].stat2/100);
 
+        if(drillCurrentHealth <= 0)
+        {
+            movement.GoToBase();
+        }
+
+
+        //Repair
+        if (Input.GetKeyDown(KeyCode.Mouse2) && inBase)
+        {
+            StartCoroutine(Repair());
+        }
+    }
+
+    public IEnumerator Repair()
+    {
+        yield return new WaitForSeconds(1);
+        wheelsCurrentHealth = wheelsMaxHelath;
+        bodyCurrentHealth = bodyMaxHealth;
+        drillCurrentHealth = drillMaxHealth;
     }
 
     IEnumerator LoosingHealth()
@@ -50,7 +79,7 @@ public class RoberManager : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
             if (movement.alreadyGoing)
             {
                 wheelsCurrentHealth--;

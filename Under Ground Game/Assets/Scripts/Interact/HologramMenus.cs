@@ -31,6 +31,8 @@ public class HologramMenus : MonoBehaviour
             }
             greenPosition = optionIndex;
             options[greenPosition].animator.SetBool("Green", true);
+
+            StartCoroutine(FindObjectOfType<RoberManager>().Repair());
         }
         ChangeOption();
 
